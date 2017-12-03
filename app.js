@@ -6,6 +6,7 @@ const handlebars = require("express-handlebars");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const path = require("path");
 const serverConfig = require("./config/server");
 const settings = require("./config/settings");
 
@@ -20,11 +21,16 @@ mongoose.connect(settings.mongoURI,{
     () => console.error("Mongo Failed to connect!")
 )
 
+
 //Register Models
 require("./models/User")
 
 //create app
 const app = express();
+
+
+//setup static/public file path
+app.use(express.static(path.join(__dirname,"public")));
 
 //setup cookie parser
 app.use(cookieParser());
