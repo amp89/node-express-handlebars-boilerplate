@@ -3,6 +3,7 @@ const cookieParser = require("cookie-parser");
 const express = require("express");
 const expressSession = require("express-session");
 const handlebars = require("express-handlebars");
+const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const serverConfig = require("./config/server");
@@ -31,6 +32,9 @@ app.use(cookieParser());
 //setup body parser
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+
+//setup method override (allows put and delete)
+app.use(methodOverride("_method"));
 
 //setup session / passport
 app.use(expressSession({
