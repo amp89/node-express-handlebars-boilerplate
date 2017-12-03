@@ -1,5 +1,4 @@
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
+
 const express = require("express");
 const expressSession = require("express-session");
 const handlebars = require("express-handlebars");
@@ -25,12 +24,6 @@ require("./models/User")
 //create app
 const app = express();
 
-//setup cookie parser (required for express Session to work properly - just fyi)
-app.use(cookieParser());
-
-//setup body parser (actually, maybe this is necessary for express to work properly??)
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
 
 //setup session / passport
 app.use(expressSession({
