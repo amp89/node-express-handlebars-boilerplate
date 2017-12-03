@@ -15,8 +15,10 @@ mongoose.connect(settings.mongoURI,{
     () => console.error("Mongo Failed to connect!")
 )
 
-const app = express();
+//Register Models
+require("./models/User")
 
+const app = express();
 
 app.use(expressSession({
     secret:settings.secret,
@@ -25,6 +27,7 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+require("./config/passportSettings")(passport);
 
 app.engine("handlebars", handlebars(
     {
