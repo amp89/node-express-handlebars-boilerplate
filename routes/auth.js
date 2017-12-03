@@ -8,15 +8,19 @@ router.get("/googleauth",
 );
 
 router.get("/googlecallback",
-    passport.authenticate("google",{failureRedirect:"/"},),
+    passport.authenticate(
+        "google",
+        {failureRedirect:"/"}),
     (req,res) => {
+        console.log(req.user)
         res.redirect("/auth/showinfo_dev");
     }
 );
 
 router.get("/showinfo_dev",(req,res) => {
-    // res.send(req.user)
-    res.send("<h1>Hi</h1>");
+    //Remove this, for testing auth only
+    res.send(req.user);
+    
 })
 
 module.exports = router;

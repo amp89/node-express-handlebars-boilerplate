@@ -1,11 +1,15 @@
-const express = require("express")
-const expressSession = require("express-session")
-const handlebars = require("express-handlebars")
-const mongoose = require("mongoose")
-const passport = require("passport")
-const serverConfig = require("./config/server")
-const settings = require("./config/settings")
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const express = require("express");
+const expressSession = require("express-session");
+const handlebars = require("express-handlebars");
+const mongoose = require("mongoose");
+const passport = require("passport");
+const serverConfig = require("./config/server");
+const settings = require("./config/settings");
 
+
+//connect to mongo
 mongoose.Promise = global.Promise;
 mongoose.connect(settings.mongoURI,{
     useMongoClient:true
@@ -18,8 +22,17 @@ mongoose.connect(settings.mongoURI,{
 //Register Models
 require("./models/User")
 
+//create app
 const app = express();
 
+//setup cookie parser (required for express Session to work properly - just fyi)
+app.use(cookieParser());
+
+//setup body parser (actually, maybe this is necessary for express to work properly??)
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+
+//setup session / passport
 app.use(expressSession({
     secret:settings.secret,
     resave:false,
@@ -29,6 +42,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passportSettings")(passport);
 
+app.use((req,res,next) => {
+    res.locals.user = req.user || null;
+    next();
+});
+
+//set engine to handlebars
 app.engine("handlebars", handlebars(
     {
         helpers:{},
@@ -37,17 +56,18 @@ app.engine("handlebars", handlebars(
 ));
 app.set("view engine","handlebars");
 
+
+//routing
 app.get("/",(req,res) => {
     res.render("index/index");
 })
 
-////routes
-
+//routes
 const auth = require("./routes/auth");
 app.use("/auth",auth);
 
 
-
+//start app
 app.listen(serverConfig.port, () => {
     console.log(`listening on port ${serverConfig.port}`);
 })
