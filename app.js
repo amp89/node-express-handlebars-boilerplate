@@ -1,4 +1,5 @@
-
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const express = require("express");
 const expressSession = require("express-session");
 const handlebars = require("express-handlebars");
@@ -24,6 +25,12 @@ require("./models/User")
 //create app
 const app = express();
 
+//setup cookie parser
+app.use(cookieParser());
+
+//setup body parser
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
 
 //setup session / passport
 app.use(expressSession({
