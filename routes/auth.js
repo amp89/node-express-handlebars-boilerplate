@@ -13,14 +13,15 @@ router.get("/googlecallback",
         {failureRedirect:"/"}),
     (req,res) => {
         console.log(req.user)
-        res.redirect("/auth/showinfo_dev");
+        res.redirect("/");
     }
 );
 
-router.get("/showinfo_dev",(req,res) => {
-    //Remove this, for testing auth only
-    res.send(req.user);
-    
-})
+
+
+router.get("/logout", (req,res) => {
+    req.logout();
+    res.redirect("/")
+});
 
 module.exports = router;

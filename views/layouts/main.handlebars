@@ -6,20 +6,27 @@
         <meta http-equiv="X-UA-Compatible" content="ie-edge">
         <title>BOILER PLATE CODE</title>
         <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="/vendor/css/materialize-0.100.2.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/vendor/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <script src="/vendor/js/jquery-3.2.1.min.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="/vendor/js/materialize-0.100.2.min.js"></script>
     <link rel="stylesheet" href="/vendor/css/font-awesome-4.7.0.min.css">
     </head>
     <body>
+        <a href="/">home</a>
+        <a href="/auth/googleauth">Login</a>
+        <a href="/auth/logout">Logout</a>
+        {{#if user}}
+            {{user.firstName}} {{user.lastName}}
+        {{else}}
+            Not Logged in.
+        {{/if}}
         {{{body}}}
     </body>
 
-
     {{!-- gotta do this to init the stupid sidebar (and the selecter) thing --}}
-    <script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
-    <script src="js/side-nav-materialize.js"></script>
+    <script src="/vendor/js/ckeditor.min.js"></script>
+    <script src="/js/side-nav-materialize.js"></script>
     
 </html>

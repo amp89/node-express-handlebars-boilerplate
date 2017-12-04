@@ -52,6 +52,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passportSettings")(passport);
 
+//if you do this you can use "user" in the templates.
 app.use((req,res,next) => {
     res.locals.user = req.user || null;
     next();
