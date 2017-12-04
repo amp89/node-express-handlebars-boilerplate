@@ -17,9 +17,10 @@
         <a href="/">home</a>
         <a href="/auth/googleauth">Login</a>
         <a href="/auth/logout">Logout</a>
+        <a href="/test/form">Test</a>
         {{#if user}}
             {{user.firstName}} {{user.lastName}}
-            <a href="/test/form">Test</a>
+            
         {{else}}
             Not Logged in.
         {{/if}}

@@ -78,7 +78,10 @@ app.get("/privacy",(req,res) => {
 
 //routes
 const auth = require("./routes/auth");
+const test = require("./routes/test");
+
 app.use("/auth",auth);
+app.use("/test",test);
 
 
 //start app
