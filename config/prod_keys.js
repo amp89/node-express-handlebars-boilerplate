@@ -3,5 +3,5 @@ module.exports = {
     googleClientID:process.env.GID,
     googleClientSecret:process.env.GCS,
 
-    secret:"498yrtqwepoihfpoawhf"
+    secret:process.env.SK
 }
