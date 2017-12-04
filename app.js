@@ -71,7 +71,10 @@ app.set("view engine","handlebars");
 //routing
 app.get("/",(req,res) => {
     res.render("index/index");
-})
+});
+app.get("/privacy",(req,res) => {
+    res.send("All this site uses is your google ID and email for identificaiton, and your Google + profile picture.");
+});
 
 //routes
 const auth = require("./routes/auth");
