@@ -2,6 +2,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const expressSession = require("express-session");
+const flash = require("connect-flash");
 const handlebars = require("express-handlebars");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
@@ -28,6 +29,8 @@ require("./models/User")
 //create app
 const app = express();
 
+//use flash messages
+app.use(flash());
 
 //setup static/public file path
 app.use(express.static(path.join(__dirname,"public")));
@@ -52,8 +55,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passportSettings")(passport);
 
-//if you do this you can use "user" in the templates.
+//flash messages / global vars (eg: user accessible in templates)
 app.use((req,res,next) => {
+    res.locals.success_msg = req.flash("success_msg");
+    res.locals.error_msg = req.flash("error_msg");
+
     res.locals.user = req.user || null;
     next();
 });
