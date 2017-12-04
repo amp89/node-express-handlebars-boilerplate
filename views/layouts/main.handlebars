@@ -24,6 +24,9 @@
         {{else}}
             Not Logged in.
         {{/if}}
+
+        {{> _flash_error}}
+        {{> _flash_message}}
         {{{body}}}
     </body>
 

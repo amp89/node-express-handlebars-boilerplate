@@ -10,9 +10,14 @@ router.get("/googleauth",
 router.get("/googlecallback",
     passport.authenticate(
         "google",
-        {failureRedirect:"/"}),
+        {
+            failureRedirect:"/",
+            
+        }),
     (req,res) => {
         console.log(req.user)
+        req.flash("success_msg","You logged in! <Test flash success_msg>");
+        req.flash("error_msg","You logged in! <Test flash error_msg>");
         res.redirect("/");
     }
 );
