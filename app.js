@@ -95,9 +95,6 @@ const test = require("./routes/test");
 app.use("/auth",auth);
 app.use("/test",test);
 
-
-
-
 //error catch middleware NOTE: This must go last
 app.use((err,req,res,next) => {
     res.status(500);
