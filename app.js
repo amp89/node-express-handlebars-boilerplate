@@ -46,11 +46,14 @@ app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 
 //setup session / passport
-app.use(expressSession({
+const session = expressSession({
     secret:settings.secret,
     resave:false,
     saveUninitialized:false
-}));
+});
+
+app.use(session);
+
 app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passportSettings")(passport);
@@ -59,8 +62,8 @@ require("./config/passportSettings")(passport);
 app.use((req,res,next) => {
     res.locals.success_msg = req.flash("success_msg");
     res.locals.error_msg = req.flash("error_msg");
-
     res.locals.user = req.user || null;
+    
     next();
 });
 
@@ -107,8 +110,24 @@ app.use((err,req,res,next) => {
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 
+const socketIOExpressSession = require("socket.io-express-session");
+
+io.use(socketIOExpressSession(session));
+
 io.on("connection", (socket) => {
-    socket.emit("thischannel", {data:"hi",data2:"hello"});
+    console.log(socket);
+    console.log(socket.handshake);
+    console.log(socket.handshake.session);
+    try{
+        console.log("LOGGED IN USER ID: ", socket.handshake.session.passport.user);
+    }catch (err){
+        err => console.log("waiting")
+    }
+    socket.emit("thischannel", {
+        data:"hi",
+        data2:"hello",
+        
+    });
     socket.on("thischannel", data => {
         console.log("SOCKET MSG ON thischannel: ", data);
     })
