@@ -115,11 +115,9 @@ const socketIOExpressSession = require("socket.io-express-session");
 io.use(socketIOExpressSession(session));
 
 io.on("connection", (socket) => {
-    console.log(socket);
-    console.log(socket.handshake);
-    console.log(socket.handshake.session);
+
     try{
-        console.log("LOGGED IN USER ID: ", socket.handshake.session.passport.user);
+        console.log("LOGGED IN USER ID: ", socket.handshake.session.passport.user); //this works
     }catch (err){
         err => console.log("waiting")
     }
