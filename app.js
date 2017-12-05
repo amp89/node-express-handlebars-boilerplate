@@ -46,11 +46,13 @@ app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 
 //setup session / passport
-app.use(expressSession({
+expressSessionSettings = expressSession({
     secret:settings.secret,
     resave:false,
     saveUninitialized:false
-}));
+});
+
+app.use(expressSessionSettings);
 app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passportSettings")(passport);
@@ -106,6 +108,9 @@ app.use((err,req,res,next) => {
 //socketio stuff
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
+
+const socketIOExpressSession = require("express-socket.io-session")
+io.use(expressSessionSettings)
 
 io.on("connection", (socket) => {
     socket.emit("thischannel", {data:"hi",data2:"hello"});
