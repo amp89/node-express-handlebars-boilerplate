@@ -92,6 +92,9 @@ const test = require("./routes/test");
 app.use("/auth",auth);
 app.use("/test",test);
 
+
+
+
 //error catch middleware NOTE: This must go last
 app.use((err,req,res,next) => {
     res.status(500);
@@ -100,7 +103,29 @@ app.use((err,req,res,next) => {
 });
 
 
+//socketio stuff
+var server = require("http").createServer(app);
+var io = require("socket.io")(server);
+
+io.on("connection", (socket) => {
+    socket.emit("thischannel", {data:"hi",data2:"hello"});
+    socket.on("thischannel", data => {
+        console.log("SOCKET MSG ON thischannel: ", data);
+    })
+})
+
+//TODO MOVE TO TEST ROUTES
+app.get("/socket-test", (req,res) => {
+    res.render("test/socket_test");
+});
+
 //start app
-app.listen(serverConfig.port, () => {
+// app.listen(serverConfig.port, () => {
+server.listen(serverConfig.port, () => {
     console.log(`listening on port ${serverConfig.port}`);
 })
+
+
+
+
+
