@@ -3,6 +3,7 @@ const authObj = {
         if(req.isAuthenticated()){
             return next();
         } else {
+            req.flash("error_msg","Please Login First");
             res.redirect("/");
         }
     }
