@@ -1,14 +1,19 @@
 <a href="/">Home</a>
-        <a href="/auth/googleauth">Login</a>
-        <a href="/auth/logout">Logout</a>
-        <a href="/test/form">Test</a>
-        {{#if user}}
-            {{user.firstName}} {{user.lastName}}
-            
-        {{else}}
-            Not Logged in.
-        {{/if}}
+<br>
+<a href="/auth/googleauth">Login</a>
+<br>
+<a href="/auth/logout">Logout</a>
+<br>
+<a href="/test/form">Test Form Data</a>
+<br>
+<a href="/test/error">Test Error Handling</a>
+<br>
+{{#if user}}
+    {{user.firstName}} {{user.lastName}}
+    
+{{else}}
+    Not Logged in.
+{{/if}}
 
-        {{> _flash_error}}
-        {{> _flash_message}}
-        {{{body}}}
+{{> _flash_error}}
+{{> _flash_message}}

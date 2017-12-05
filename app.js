@@ -74,10 +74,13 @@ app.engine("handlebars", handlebars(
 app.set("view engine","handlebars");
 
 
+
 //routing
 app.get("/",(req,res) => {
     res.render("index/index");
 });
+
+
 app.get("/privacy",(req,res) => {
     res.send("All this site uses is your google ID and email for identificaiton, and your Google + profile picture.");
 });
@@ -88,6 +91,13 @@ const test = require("./routes/test");
 
 app.use("/auth",auth);
 app.use("/test",test);
+
+//error catch middleware NOTE: This must go last
+app.use((err,req,res,next) => {
+    res.status(500);
+    // next();
+    res.send("I am a generic message informing you that there was some sort of error somewhere.");
+});
 
 
 //start app
