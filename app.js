@@ -119,6 +119,7 @@ app.get("/socket-test", (req,res) => {
     res.render("test/socket_test");
 });
 
+
 //start app
 // app.listen(serverConfig.port, () => {
 server.listen(serverConfig.port, () => {
