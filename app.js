@@ -91,14 +91,17 @@ app.get("/privacy",(req,res) => {
 //routes
 const auth = require("./routes/auth");
 const test = require("./routes/test");
+const mail = require("./routes/mail");
 
 app.use("/auth",auth);
 app.use("/test",test);
+app.use("/mail",mail);
 
 //error catch middleware NOTE: This must go last
 app.use((err,req,res,next) => {
     res.status(500);
     // next();
+    console.error("UNHANDLED APPLICATION ERROR: ", err);
     res.send("I am a generic message informing you that there was some sort of error somewhere.");
 });
 
