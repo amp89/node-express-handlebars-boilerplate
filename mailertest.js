@@ -8,7 +8,7 @@ const { smtpConfig } = require("./config/settings")
 //         pass: smtpConfig.auth.pass
 //     }
 // })
-
+console.log(smtpConfig);
 let transporter = nodemailer.createTransport(smtpConfig);
 
 transporter.verify(function(error, success) {
