@@ -1,3 +1,4 @@
+// i should store these b64 or encrypted
 module.exports = {
     mongoURI:process.env.MUI,
     googleClientID:process.env.GID,
@@ -8,7 +9,7 @@ module.exports = {
     smtpConfig : {
         host: process.env.SH,
         port: process.env.SP,
-        secure: process.env.SB,
+        secure: true,//process.env.SB,
         auth: {
             user: process.env.SAU,
             pass: process.env.SAP
