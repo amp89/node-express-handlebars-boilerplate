@@ -1,6 +1,7 @@
 <div>
+    <h2>Hey send me an email!</h2>
     <form action="/mail" method="POST">        
-        <label for="email">Email To:</label><input type="email" name="email">
+        {{!-- <label for="email">Email To:</label><input type="email" name="email"> This is set on the backend --}}
         <label for="subject">Subject:</label><input type="subject" name="subject">
         <label for="body">Message:<br></label><textarea name="body" id="" cols="50" rows="30"></textarea>
         <input type="submit" value="send the email...">

@@ -10,13 +10,7 @@ const { ensureAuth } = require("../helpers/auth");
 
 
 // const transporter = nodemailer.createTransport(smtpConfig);
-let transporter = nodemailer.createTransport({
-    service:"Yahoo",
-    auth: {
-        user: smtpConfig.auth.user,
-        pass: smtpConfig.auth.pass
-    }
-})
+let transporter = nodemailer.createTransport(smtpConfig);
 
 
 router.get("/", ensureAuth, (req,res) => {
@@ -27,7 +21,7 @@ router.get("/", ensureAuth, (req,res) => {
 
 router.post("/", ensureAuth, (req,res) => {
     let sender = req.user;
-    let toEmail = req.body.email;
+    let toEmail = "alexander.peterson89@gmail.com";
     let subject = req.body.subject;
     let emailBody = req.body.body;
 
@@ -38,9 +32,9 @@ router.post("/", ensureAuth, (req,res) => {
 
     let mailOptions = {
         from: smtpConfig.auth.user,
-        to: "alexpetersondev@yahoo.com",
-        subject: "test",
-        text: "test",
+        to: toEmail,
+        subject: subject,
+        text: emailBody,
         //html: htmlstuff
 
     }
